@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" href="favicon.png" type="image/png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>FLJC | La Méthode qui remplit votre restaurant</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:#060608;color:#d4d4d4;overflow-x:hidden;line-height:1.65;font-weight:400;font-size:15px;-webkit-text-size-adjust:100%}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;height:auto}
+
+.container{max-width:1200px;margin:0 auto;padding:0 24px}
+.accent{color:#00e676}
+.tag{display:inline-block;font-size:.65rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#00e676;margin-bottom:14px}
+h1,h2,h3,h4,h5{font-family:'Outfit',sans-serif;font-weight:700;letter-spacing:-.3px}
+.section-title{font-size:clamp(1.7rem,4.5vw,2.8rem);line-height:1.15;margin-bottom:16px}
+.section-sub{font-size:.95rem;color:#777;max-width:580px;margin:0 auto 48px;line-height:1.7}
+.text-center{text-align:center}
+section{padding:90px 0;position:relative}
+
+/* Reveal */
+.rv{opacity:0;transform:translateY(40px) scale(.97);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}
+.rv.v{opacity:1;transform:none}
+.d1{transition-delay:.15s}.d2{transition-delay:.3s}.d3{transition-delay:.45s}.d4{transition-delay:.6s}
+
+/* Glow dividers */
+.gl{height:1px;background:linear-gradient(90deg,transparent,#00e676 50%,transparent);margin:0 auto;width:40%;opacity:.18;position:relative}
+.gl::after{content:'';position:absolute;top:-8px;left:50%;transform:translateX(-50%);width:60px;height:16px;background:radial-gradient(ellipse,rgba(0,230,118,.15),transparent);pointer-events:none}
+
+/* Global animated grid background */
+body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(rgba(0,230,118,.03) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0}
+
+/* Glowing cursor trail effect on sections */
+section::after{content:'';position:absolute;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(0,230,118,.03),transparent 60%);pointer-events:none;top:var(--mouse-y,50%);left:var(--mouse-x,50%);transform:translate(-50%,-50%);opacity:0;transition:opacity .3s}
+section:hover::after{opacity:1}
+
+@keyframes borderGlow{0%{border-color:rgba(0,230,118,.05)}50%{border-color:rgba(0,230,118,.15)}100%{border-color:rgba(0,230,118,.05)}}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:999;padding:14px 0;background:rgba(6,6,8,.82);backdrop-filter:blur(18px);border-bottom:1px solid rgba(255,255,255,.04);transition:padding .3s}
+nav .container{display:flex;align-items:center;justify-content:space-between}
+.nav-logo{font-family:'Outfit',sans-serif;font-size:1.5rem;font-weight:700}
+.nav-logo span{color:#00e676}
+.nav-links{display:flex;gap:26px;align-items:center}
+.nav-links a{font-size:.8rem;font-weight:500;color:#888;transition:color .25s}
+.nav-links a:hover{color:#fff}
+.nav-cta{background:linear-gradient(135deg,#00e676,#00c853);color:#060608!important;padding:10px 22px;border-radius:8px;font-weight:600;font-size:.8rem;transition:transform .2s,box-shadow .3s}
+.nav-cta:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,230,118,.25)}
+.burger{display:none;flex-direction:column;gap:5px;cursor:pointer}
+.burger span{width:22px;height:1.5px;background:#fff;border-radius:1px}
+.mob-menu{display:none;position:fixed;inset:0;background:rgba(6,6,8,.97);z-index:998;flex-direction:column;align-items:center;justify-content:center;gap:26px}
+.mob-menu.open{display:flex}
+.mob-menu a{font-size:1.15rem;font-weight:600;color:#ccc;font-family:'Outfit',sans-serif}
+.mob-menu a:hover{color:#00e676}
+.mob-close{position:absolute;top:18px;right:22px;font-size:2rem;color:#fff;cursor:pointer}
+
+
+/* BUTTONS */
+.btn-primary{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#00e676,#00c853);color:#060608;padding:15px 32px;border-radius:10px;font-weight:600;font-size:.92rem;border:none;cursor:pointer;transition:all .3s cubic-bezier(.22,1,.36,1);font-family:'DM Sans',sans-serif;position:relative;overflow:hidden}
+.btn-primary::before{content:'';position:absolute;top:50%;left:50%;width:0;height:0;background:rgba(255,255,255,.15);border-radius:50%;transform:translate(-50%,-50%);transition:width .5s,height .5s}
+.btn-primary:hover::before{width:300px;height:300px}
+.btn-primary:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 14px 45px rgba(0,230,118,.3)}
+.btn-ghost{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(255,255,255,.1);color:#ccc;padding:15px 32px;border-radius:10px;font-weight:500;font-size:.92rem;cursor:pointer;background:transparent;transition:all .3s;font-family:'DM Sans',sans-serif}
+.btn-ghost:hover{border-color:#00e676;color:#00e676}
+
+/* HERO */
+#hero{min-height:100vh;display:flex;align-items:center;padding-top:80px;overflow:hidden;position:relative}
+#hero::before{content:'';position:absolute;top:-20%;left:50%;transform:translateX(-50%);width:900px;height:900px;background:radial-gradient(circle,rgba(0,230,118,.06) 0%,transparent 55%);pointer-events:none}
+.hero-center{text-align:center;max-width:740px;margin:0 auto;position:relative;z-index:2}
+.hero-center h1{font-size:clamp(2.2rem,5vw,3.5rem);line-height:1.08;margin-bottom:20px;letter-spacing:-.5px}
+.hero-center>p{font-size:1.02rem;color:#999;margin-bottom:28px;max-width:560px;margin-left:auto;margin-right:auto;line-height:1.75}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-bottom:8px}
+.hero-trust{font-size:.78rem;color:#555;letter-spacing:.5px;margin-bottom:10px}
+.hero-trust span{color:#00e676}
+.hero-stats{display:flex;justify-content:center;gap:40px;margin-top:32px;flex-wrap:wrap}
+.hero-stat-item{text-align:center}
+.hero-stat-item .hs-num{font-family:'Outfit',sans-serif;font-size:1.6rem;font-weight:700;color:#00e676}
+.hero-stat-item .hs-lbl{font-size:.72rem;color:#666;margin-top:2px}
+.avatar-band{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:24px}
+.avatar-stack{display:flex}
+.avatar-stack img{width:36px;height:36px;border-radius:50%;border:2px solid #060608;margin-left:-10px;object-fit:cover}
+.avatar-stack img:first-child{margin-left:0}
+.avatar-band-txt{font-size:.82rem;color:#ccc;font-weight:500}
+.avatar-band-txt strong{color:#00e676}
+.av-logo{width:36px;height:36px;border-radius:50%;border:2px solid #060608;margin-left:-10px;display:inline-flex;align-items:center;justify-content:center;font-family:'Outfit',sans-serif;font-weight:700;font-size:.42rem;letter-spacing:.3px;flex-shrink:0}
+.av-logo:first-child{margin-left:0}
+
+/* Hero subtitle list */
+.hero-list{list-style:none;display:flex;flex-direction:column;gap:8px;text-align:left;max-width:460px;margin:0 auto 28px}
+.hero-list li{display:flex;align-items:center;gap:10px;font-size:.95rem;color:#bbb}
+.hero-list li::before{content:'✓';color:#00e676;font-weight:700;font-size:.85rem;flex-shrink:0;width:20px;height:20px;display:flex;align-items:center;justify-content:center;background:rgba(0,230,118,.1);border-radius:50%}
+
+/* TRUST BAND */
+#trust{padding:36px 0;overflow:hidden;border-top:1px solid rgba(255,255,255,.03);border-bottom:1px solid rgba(255,255,255,.03);background:rgba(255,255,255,.008)}
+.trust-lbl{text-align:center;font-size:.65rem;font-weight:600;color:#00e676;letter-spacing:2px;text-transform:uppercase;margin-bottom:20px}
+.trust-scroll{overflow:hidden;position:relative}
+.trust-scroll::before,.trust-scroll::after{content:'';position:absolute;top:0;bottom:0;width:60px;z-index:2;pointer-events:none}
+.trust-scroll::before{left:0;background:linear-gradient(90deg,#060608,transparent)}
+.trust-scroll::after{right:0;background:linear-gradient(270deg,#060608,transparent)}
+.trust-track{display:flex;gap:38px;animation:tScroll 30s linear infinite;width:max-content;will-change:transform}
+.trust-track:hover{animation-play-state:paused}
+.trust-track img{width:48px;height:48px;border-radius:50%;object-fit:cover;border:2px solid rgba(0,230,118,.15)}
+.trust-item{display:flex;flex-direction:column;align-items:center;gap:6px;min-width:80px;transition:transform .3s}
+.trust-item:hover{transform:scale(1.15)}
+.trust-av{width:48px;height:48px;border-radius:50%;border:1.5px solid rgba(0,230,118,.15);overflow:hidden;background:rgba(0,230,118,.04);transition:all .3s}
+.trust-item:hover .trust-av{border-color:rgba(0,230,118,.4);box-shadow:0 0 14px rgba(0,230,118,.2)}
+.trust-av img{width:100%;height:100%;object-fit:cover}
+.trust-nm{font-size:.68rem;color:#777;text-align:center;line-height:1.3}
+@keyframes tScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.trust-logo-img{display:flex;align-items:center;justify-content:center;min-width:80px;height:52px;padding:6px 10px;border-radius:10px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);transition:all .3s;flex-shrink:0;overflow:hidden}
+.trust-logo-img:hover{border-color:rgba(0,230,118,.15);transform:scale(1.08);background:rgba(255,255,255,.06)}
+.trust-logo-img img{max-height:40px;max-width:100px;width:auto;height:auto;object-fit:contain;filter:brightness(1.1)}
+
+/* ==================== LA RÉALITÉ ==================== */
+#realite{background:linear-gradient(180deg,#060608 0%,#0c0c10 50%,#060608 100%);padding:100px 0}
+.realite-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:900px;margin:0 auto 40px}
+.realite-col{border-radius:16px;padding:32px 28px}
+.realite-bad{background:rgba(255,82,82,.03);border:1px solid rgba(255,82,82,.1)}
+.realite-good{background:rgba(0,230,118,.03);border:1px solid rgba(0,230,118,.1)}
+.realite-col-head{display:flex;align-items:center;gap:10px;margin-bottom:20px}
+.realite-col-head .dot{width:10px;height:10px;border-radius:50%}
+.realite-bad .dot{background:#ff5252;box-shadow:0 0 8px rgba(255,82,82,.4)}
+.realite-good .dot{background:#00e676;box-shadow:0 0 8px rgba(0,230,118,.4)}
+.realite-col-head h4{font-size:1rem}
+.realite-bad h4{color:#ff5252}
+.realite-good h4{color:#00e676}
+.realite-list{list-style:none;display:flex;flex-direction:column;gap:10px}
+.realite-list li{display:flex;align-items:flex-start;gap:10px;font-size:.88rem;color:#999;line-height:1.6}
+.realite-list li .ico{flex-shrink:0;font-size:.9rem;margin-top:2px}
+.realite-bottom{max-width:700px;margin:0 auto;text-align:center;padding:28px 24px;border-radius:14px;background:rgba(0,230,118,.03);border:1px solid rgba(0,230,118,.1)}
+.realite-bottom h4{font-family:'Outfit',sans-serif;font-size:1rem;color:#fff;margin-bottom:8px}
+.realite-bottom p{font-size:.88rem;color:#888;line-height:1.7}
+.realite-bottom strong{color:#00e676}
+
+/* ==================== LA SOLUTION FLJC (différence agences) ==================== */
+#solution-fljc{padding:100px 0;background:radial-gradient(ellipse at 50% 50%,rgba(0,230,118,.04) 0%,transparent 60%)}
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:900px;margin:0 auto}
+.compare-col{border-radius:16px;padding:32px 28px}
+.compare-them{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06)}
+.compare-us{background:linear-gradient(145deg,rgba(0,230,118,.04),rgba(0,230,118,.01));border:1px solid rgba(0,230,118,.15)}
+.compare-col-head{display:flex;align-items:center;gap:10px;margin-bottom:20px}
+.compare-col-head h4{font-size:1rem}
+.compare-them h4{color:#888}
+.compare-us h4{color:#00e676}
+.compare-list{list-style:none;display:flex;flex-direction:column;gap:10px}
+.compare-list li{display:flex;align-items:flex-start;gap:10px;font-size:.88rem;color:#999;line-height:1.6}
+.compare-list li .ico{flex-shrink:0;font-size:.9rem;margin-top:2px}
+
+/* ==================== COMMENT ÇA FONCTIONNE ==================== */
+#mecanisme{background:linear-gradient(180deg,#08080c 0%,#060608 100%);position:relative}
+#mecanisme::before{content:'';position:absolute;left:0;top:15%;bottom:15%;width:3px;background:linear-gradient(180deg,transparent,#00e676,transparent);opacity:.2}
+.meca-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;max-width:720px;margin:0 auto 28px}
+.meca-item{display:flex;align-items:center;gap:12px;background:rgba(0,230,118,.03);border:1px solid rgba(0,230,118,.1);border-radius:12px;padding:16px 20px;font-size:.9rem;color:#ccc;transition:border-color .3s,background .3s}
+.meca-item:hover{border-color:rgba(0,230,118,.25);background:rgba(0,230,118,.06)}
+.meca-check{color:#00e676;font-size:1rem;font-weight:700;flex-shrink:0;width:22px;height:22px;display:flex;align-items:center;justify-content:center;background:rgba(0,230,118,.1);border-radius:6px}
+.meca-footer{text-align:center;font-size:.95rem;color:#888;line-height:1.7}
+.meca-footer strong{color:#00e676}
+
+/* ECOSYSTEM PHONE SECTION */
+#ecosystem{position:relative;overflow:hidden;background:linear-gradient(180deg,#060608,#07090d,#060608)}
+#ecosystem::before{content:'';position:absolute;top:50%;left:50%;width:800px;height:800px;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(0,230,118,.04) 0%,transparent 50%);pointer-events:none}
+.eco-layout{display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:center;max-width:1100px;margin:0 auto;position:relative}
+.eco-steps{display:flex;flex-direction:column;gap:32px;padding-right:40px;position:relative}
+.eco-steps::after{content:'';position:absolute;top:10px;bottom:10px;right:0;width:2px;background:linear-gradient(180deg,transparent,rgba(0,230,118,.15),rgba(0,230,118,.15),transparent)}
+.eco-step{display:flex;align-items:flex-start;gap:12px;text-align:left;position:relative;padding-right:24px}
+.eco-step::after{content:'';position:absolute;right:-6px;top:14px;width:12px;height:12px;border-radius:50%;background:rgba(0,230,118,.15);border:2px solid #00e676;box-shadow:0 0 12px rgba(0,230,118,.3);z-index:2}
+.eco-step-ico{width:40px;height:40px;border-radius:10px;background:rgba(0,230,118,.06);border:1px solid rgba(0,230,118,.1);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.eco-step h6{font-family:'Outfit',sans-serif;font-size:.82rem;font-weight:600;color:#00e676;margin:0 0 3px;text-transform:uppercase;letter-spacing:.5px}
+.eco-step span{font-size:.73rem;color:#666;line-height:1.5;display:block}
+.eco-phone-col{position:relative;padding:0 30px;display:flex;flex-direction:column;align-items:center}
+.eco-phone-title{text-align:center;margin-bottom:24px;position:relative;z-index:4}
+.eco-phone-title h3{font-family:'Outfit',sans-serif;font-size:.8rem;font-weight:500;color:#888;text-transform:uppercase;letter-spacing:2px;margin:0}
+.eco-phone-title h3 strong{display:block;font-size:1.4rem;font-weight:700;color:#fff;letter-spacing:0;margin-top:4px}
+.eco-phone-title h3 strong em{font-style:normal;color:#00e676}
+.eco-phone-wrap{position:relative;display:flex;align-items:center;justify-content:center}
+.eco-ring{position:absolute;border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%)}
+.eco-ring-1{width:260px;height:260px;border:2px solid rgba(0,230,118,.12);box-shadow:0 0 60px rgba(0,230,118,.08),inset 0 0 60px rgba(0,230,118,.04);animation:ecoRingPulse 4s ease-in-out infinite}
+.eco-ring-1::before{content:'';position:absolute;width:8px;height:8px;background:#00e676;border-radius:50%;top:-4px;left:50%;box-shadow:0 0 14px #00e676,0 0 30px rgba(0,230,118,.4);animation:hRot 20s linear infinite;transform-origin:50% calc(130px + 4px)}
+.eco-ring-2{width:340px;height:340px;border:1px solid rgba(0,230,118,.06);animation:ecoRingPulse 4s ease-in-out infinite 1s}
+.eco-ring-2::after{content:'';position:absolute;width:5px;height:5px;background:rgba(0,230,118,.6);border-radius:50%;bottom:-3px;left:50%;box-shadow:0 0 10px rgba(0,230,118,.5)}
+.eco-ring-3{width:420px;height:420px;border:1px dashed rgba(0,230,118,.04);animation:hRot 35s linear infinite reverse}
+.eco-ring-4{width:200px;height:200px;border:1px solid rgba(0,230,118,.06);animation:hRot 12s linear infinite}
+.eco-ring-4::before{content:'';position:absolute;width:4px;height:4px;background:#00e676;border-radius:50%;top:-2px;left:50%;box-shadow:0 0 8px #00e676}
+@keyframes ecoRingPulse{0%,100%{transform:translate(-50%,-50%) scale(1);opacity:.6}50%{transform:translate(-50%,-50%) scale(1.04);opacity:1}}
+@keyframes hRot{from{transform:translate(-50%,-50%) rotate(0deg)}to{transform:translate(-50%,-50%) rotate(360deg)}}
+.eco-phone-glow{position:absolute;width:350px;height:350px;top:50%;left:50%;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,rgba(0,230,118,.12) 0%,rgba(0,230,118,.04) 35%,transparent 60%);z-index:0;animation:pGlow 4s ease-in-out infinite}
+@keyframes pGlow{0%,100%{opacity:.5;transform:translate(-50%,-50%) scale(1)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.15)}}
+.eco-radar{position:absolute;top:50%;left:50%;width:180px;height:180px;transform:translate(-50%,-50%);z-index:1;pointer-events:none}
+.eco-radar-ping{position:absolute;inset:0;border-radius:50%;border:1px solid rgba(0,230,118,.15);animation:ecoRadar 3.5s ease-out infinite;opacity:0}
+.eco-radar-ping:nth-child(2){animation-delay:1.2s}
+.eco-radar-ping:nth-child(3){animation-delay:2.4s}
+@keyframes ecoRadar{0%{transform:scale(1);opacity:.5}100%{transform:scale(3);opacity:0}}
+.eco-scan{position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(0,230,118,.3),transparent);z-index:10;animation:ecoScan 4s ease-in-out infinite;pointer-events:none;border-radius:1px}
+@keyframes ecoScan{0%{top:0;opacity:0}10%{opacity:1}90%{opacity:1}100%{top:100%;opacity:0}}
+.eco-phone-reflect{position:absolute;bottom:-60px;left:50%;transform:translateX(-50%) scaleY(-1) perspective(400px) rotateX(30deg);width:180px;height:100px;background:linear-gradient(180deg,rgba(0,230,118,.04),transparent);border-radius:0 0 20px 20px;opacity:.3;filter:blur(4px);z-index:0;pointer-events:none}
+.eco-tagline{text-align:center;margin-top:30px;position:relative;z-index:4}
+.eco-tagline h4{font-family:'Outfit',sans-serif;font-size:.85rem;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:1.5px;margin:0}
+.eco-tagline h4 strong{display:block;font-size:1.1rem;color:#00e676;margin-top:2px;letter-spacing:0}
+.eco-notifs{padding-left:40px;position:relative;display:flex;flex-direction:column;gap:14px}
+.eco-notifs-title{font-family:'Outfit',sans-serif;font-size:.7rem;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px;text-align:right}
+.eco-notifs::before{content:'';position:absolute;top:10px;bottom:10px;left:0;width:2px;background:linear-gradient(180deg,transparent,rgba(0,230,118,.15),rgba(0,230,118,.15),transparent)}
+.eco-ncard{display:flex;align-items:flex-start;gap:10px;padding:12px 14px;border-radius:12px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);position:relative;transition:all .35s;max-width:260px;margin-left:auto}
+.eco-ncard:hover{border-color:rgba(0,230,118,.15);background:rgba(0,230,118,.02);transform:translateX(-4px)}
+.eco-ncard::before{content:'';position:absolute;left:-24px;top:50%;width:18px;height:1px;background:rgba(0,230,118,.1)}
+.eco-ncard-ico{width:32px;height:32px;border-radius:8px;background:rgba(0,230,118,.08);display:flex;align-items:center;justify-content:center;font-size:.8rem;flex-shrink:0}
+.eco-ncard-body{flex:1;min-width:0}
+.eco-ncard-body h6{font-size:.72rem;font-weight:600;color:#ddd;margin:0 0 2px;display:flex;justify-content:space-between;align-items:center}
+.eco-ncard-body h6 time{font-size:.55rem;color:#444;font-weight:400}
+.eco-ncard-body span{font-size:.62rem;color:#888;line-height:1.4;display:block}
+.eco-bottom{text-align:center;margin-top:40px;max-width:600px;margin-left:auto;margin-right:auto}
+.eco-bottom p{font-size:.8rem;color:#00e676;font-weight:500;letter-spacing:.5px}
+.eco-ncard:nth-child(1){animation:ecoFloat 6s ease-in-out infinite}
+.eco-ncard:nth-child(2){animation:ecoFloat 6s ease-in-out infinite 1.5s}
+.eco-ncard:nth-child(3){animation:ecoFloat 6s ease-in-out infinite 3s}
+.eco-ncard:nth-child(4){animation:ecoFloat 6s ease-in-out infinite 4.5s}
+@keyframes ecoFloat{0%,100%{transform:translateX(0)}50%{transform:translateX(-6px)}}
+
+/* Phone mockup */
+.phone{width:200px;height:400px;border-radius:30px;background:linear-gradient(160deg,#111318,#0d0f14);border:2px solid rgba(255,255,255,.08);position:relative;z-index:3;box-shadow:0 30px 80px rgba(0,0,0,.5),0 0 60px rgba(0,230,118,.08),inset 0 1px 0 rgba(255,255,255,.04);overflow:hidden;flex-shrink:0}
+.phone::before{content:'';position:absolute;top:10px;left:50%;transform:translateX(-50%);width:50px;height:5px;border-radius:3px;background:rgba(255,255,255,.08);z-index:5}
+
+/* ==================== SUR LE TERRAIN ==================== */
+#terrain{background:linear-gradient(180deg,#060608,#0a0a10,#060608);padding:100px 0}
+.terrain-content{max-width:720px;margin:0 auto;text-align:center}
+.terrain-content p{font-size:1rem;color:#999;line-height:1.8;margin-bottom:24px}
+.terrain-content strong{color:#fff}
+.terrain-highlight{display:inline-flex;align-items:center;gap:10px;padding:16px 28px;border-radius:12px;background:rgba(0,230,118,.04);border:1px solid rgba(0,230,118,.12);margin-top:16px}
+.terrain-highlight span{font-size:.9rem;color:#00e676;font-weight:600}
+
+/* CASE STUDIES */
+.case-grid{display:grid;grid-template-columns:1fr;gap:24px;max-width:720px;margin:0 auto}
+.case-card{border-radius:18px;overflow:hidden;background:#111215;border:1px solid rgba(255,255,255,.06);transition:all .4s cubic-bezier(.22,1,.36,1)}
+.case-card:hover{border-color:rgba(0,230,118,.15);transform:translateY(-4px);box-shadow:0 16px 50px rgba(0,0,0,.3)}
+.case-img{height:220px;position:relative;overflow:hidden}
+.case-img::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,#111215);pointer-events:none;z-index:1}
+.case-img-1{background:linear-gradient(135deg,#1a1510,#14120e,#0d0f12);background-image:radial-gradient(ellipse at 30% 40%,rgba(255,152,0,.08),transparent 50%),radial-gradient(ellipse at 70% 60%,rgba(0,230,118,.04),transparent 40%),linear-gradient(135deg,#1a1510,#0d0f12)}
+.case-img-2{background:linear-gradient(135deg,#10141a,#0e1214,#0d0f12);background-image:radial-gradient(ellipse at 70% 40%,rgba(66,165,245,.06),transparent 50%),radial-gradient(ellipse at 30% 60%,rgba(0,230,118,.04),transparent 40%),linear-gradient(135deg,#10141a,#0d0f12)}
+.case-img-overlay{position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.02) 1px,transparent 1px);background-size:20px 20px;z-index:0}
+.case-img-owner{position:absolute;inset:0;z-index:1}
+.case-img-owner img{width:100%;height:100%;object-fit:cover;border:none;border-radius:0;box-shadow:none}
+.case-body{padding:24px}
+.case-badge{display:inline-block;font-size:.6rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:#00e676;background:rgba(0,230,118,.08);padding:4px 10px;border-radius:6px;margin-bottom:12px}
+.case-name{font-family:'Outfit',sans-serif;font-size:1.2rem;font-weight:700;color:#ddd;margin-bottom:4px}
+.case-loc{font-size:.78rem;color:#666;margin-bottom:18px}
+.case-stats{display:flex;align-items:center;gap:12px;margin-bottom:18px;padding:16px;border-radius:10px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.04)}
+.case-stat{flex:1;text-align:center}
+.case-stat-label{font-size:.6rem;color:#666;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.case-stat-val{font-family:'Outfit',sans-serif;font-size:.95rem;font-weight:700}
+.case-red{color:#ff5252}
+.case-green{color:#00e676}
+.case-stat-arrow{color:#00e676;font-size:1.2rem;flex-shrink:0}
+.case-quote{padding:14px;border-radius:10px;background:rgba(0,230,118,.02);border-left:3px solid rgba(0,230,118,.2);margin-bottom:16px}
+.case-quote p{font-size:.82rem;color:#aaa;font-style:italic;line-height:1.6}
+.case-quote-auth{font-size:.7rem;color:#00e676;font-weight:500;margin-top:8px;font-style:normal}
+.case-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.case-metric{text-align:center;padding:10px 6px;border-radius:8px;background:rgba(255,255,255,.015);border:1px solid rgba(255,255,255,.04)}
+.case-metric-num{display:block;font-family:'Outfit',sans-serif;font-size:.95rem;font-weight:700;color:#00e676;margin-bottom:2px}
+.case-metric-lbl{font-size:.6rem;color:#666}
+
+/* Video in case studies */
+.case-video{width:100%;border-radius:12px;overflow:hidden;margin-bottom:18px;background:#0a0a0e;border:1px solid rgba(255,255,255,.06);position:relative;padding-top:56.25%;cursor:pointer}
+.case-video img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover}
+  
+/* CE QUE FLJC VOUS APPORTE */
+#apports{background:linear-gradient(180deg,#060608 0%,#0b0b10 50%,#060608 100%);position:relative}
+#apports::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(0,230,118,.03) 0%,transparent 50%);pointer-events:none}
+.benef-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:20px;max-width:900px;margin:0 auto;margin-top:40px}
+.benef-card{flex:0 0 calc(33.333% - 14px);max-width:280px;background:linear-gradient(145deg,#0f0f15,#111118);border:1px solid rgba(255,255,255,.05);border-radius:16px;padding:32px 24px;text-align:center;transition:border-color .4s,transform .3s,box-shadow .3s}
+.benef-card:hover{border-color:rgba(0,230,118,.2);transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,230,118,.06)}
+.benef-grid .benef-card:nth-child(4),.benef-grid .benef-card:nth-child(5){flex:0 0 calc(33.333% - 14px)}
+.benef-ico{margin:0 auto 16px;width:56px;height:56px;display:flex;align-items:center;justify-content:center;border-radius:14px;background:rgba(0,230,118,.06)}
+.benef-card h4{font-family:'Outfit',sans-serif;font-size:1rem;color:#fff;margin-bottom:8px}
+.benef-card p{font-size:.82rem;color:#888;line-height:1.65}
+
+/* MÉTHODE FLJC TIMELINE */
+#methode-fljc{background:linear-gradient(180deg,#0a0a0e 0%,#060608 100%);position:relative}
+#methode-fljc::before{content:'';position:absolute;top:50%;right:0;width:300px;height:300px;background:radial-gradient(circle,rgba(0,230,118,.04),transparent 60%);transform:translateY(-50%);pointer-events:none}
+.timeline{position:relative;max-width:600px;margin:0 auto;padding-left:40px}
+.tl-line{position:absolute;left:15px;top:0;bottom:0;width:2px;background:linear-gradient(180deg,rgba(0,230,118,.3),rgba(0,230,118,.05));border-radius:2px}
+.tl-step{position:relative;padding:0 0 40px 32px}
+.tl-step:last-of-type{padding-bottom:0}
+.tl-num{position:absolute;left:-40px;top:2px;width:32px;height:32px;border-radius:10px;background:rgba(0,230,118,.1);border:1.5px solid rgba(0,230,118,.3);display:flex;align-items:center;justify-content:center;font-family:'Outfit',sans-serif;font-size:.75rem;font-weight:700;color:#00e676;z-index:2}
+.tl-content h4{font-family:'Outfit',sans-serif;font-size:1.05rem;color:#fff;margin-bottom:6px}
+.tl-content p{font-size:.88rem;color:#888;line-height:1.7}
+
+/* SIMULATOR — RED LOSS THEME */
+#simulator{background:linear-gradient(180deg,#060608,#080a0e,#060608)}
+.sim-box{max-width:660px;margin:0 auto;background:rgba(255,255,255,.02);border:1px solid rgba(255,68,68,.12);border-radius:20px;padding:40px 34px;position:relative;overflow:hidden;animation:borderGlow 3s ease-in-out infinite}
+.sim-box::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(255,68,68,.015),transparent 50%);animation:simP 5s ease-in-out infinite}
+@keyframes simP{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+.sim-tag{color:#ff4444!important}
+.sim-accent{color:#ff4444}
+.sim-slider-group{margin-bottom:24px;text-align:left;position:relative;z-index:2}
+.sim-slider-group label{display:flex;justify-content:space-between;font-size:.88rem;font-weight:500;color:#bbb;margin-bottom:10px}
+.sim-val{font-family:'Outfit',sans-serif;font-size:1.05rem;font-weight:600;color:#00e676}
+.sim-val-red{color:#ff4444!important}
+.sim-range{-webkit-appearance:none;appearance:none;width:100%;height:6px;border-radius:4px;background:rgba(255,255,255,.06);outline:none;cursor:pointer}
+.sim-range::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:#00e676;cursor:pointer;box-shadow:0 0 10px rgba(0,230,118,.3);transition:box-shadow .2s}
+.sim-range::-webkit-slider-thumb:hover{box-shadow:0 0 18px rgba(0,230,118,.5)}
+.sim-range::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:#00e676;cursor:pointer;border:none;box-shadow:0 0 10px rgba(0,230,118,.3)}
+.sim-range-red::-webkit-slider-thumb{background:#ff4444!important;box-shadow:0 0 10px rgba(255,68,68,.4)!important}
+.sim-range-red::-webkit-slider-thumb:hover{box-shadow:0 0 18px rgba(255,68,68,.6)!important}
+.sim-range-red::-moz-range-thumb{background:#ff4444!important;box-shadow:0 0 10px rgba(255,68,68,.4)!important}
+.sim-range-labels{display:flex;justify-content:space-between;font-size:.7rem;color:#555;margin-top:6px}
+.sim-loss-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px}
+.sim-loss-card{text-align:center;padding:16px 12px;border-radius:12px;background:rgba(255,68,68,.04);border:1px solid rgba(255,68,68,.1)}
+.sim-loss-card .sim-loss-num{font-family:'Outfit',sans-serif;font-size:1.3rem;font-weight:700;color:#ff4444;margin-bottom:4px}
+.sim-loss-card .sim-loss-label{font-size:.7rem;color:#888;text-transform:uppercase;letter-spacing:.3px}
+.sim-loss-main-card{text-align:center;padding:24px 16px;border-radius:14px;background:rgba(255,68,68,.06);border:1px solid rgba(255,68,68,.15);margin-bottom:20px}
+.sim-loss-main-label{font-size:.75rem;color:#aaa;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.sim-loss-big{font-family:'Outfit',sans-serif;font-size:clamp(1.8rem,4.5vw,2.6rem);font-weight:800;color:#ff4444;text-shadow:0 0 24px rgba(255,68,68,.2);margin-bottom:6px}
+.sim-loss-year{font-size:.88rem;color:#aaa}
+.sim-loss-year strong{color:#ff4444;font-family:'Outfit',sans-serif;font-size:1.1rem}
+.btn-sim-red{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#ff4444,#cc3333);color:#fff;padding:15px 32px;border-radius:10px;font-weight:600;font-size:.92rem;border:none;cursor:pointer;transition:all .3s;font-family:'DM Sans',sans-serif;text-decoration:none}
+.btn-sim-red:hover{transform:translateY(-3px);box-shadow:0 14px 45px rgba(255,68,68,.3)}
+.btn-sim-red{position:relative;z-index:10}
+  
+/* FAQ */
+.faq-list{max-width:700px;margin:0 auto}
+.faq-item{border:1px solid rgba(255,255,255,.06);border-radius:12px;margin-bottom:10px;overflow:hidden;background:rgba(255,255,255,.02);transition:border-color .3s,background .3s}
+.faq-item:hover{border-color:rgba(0,230,118,.12)}
+.faq-item.open{border-color:rgba(0,230,118,.15);background:rgba(0,230,118,.02)}
+.faq-q{padding:18px 22px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-weight:600;font-size:.9rem;color:#ccc;background:transparent;border:none;width:100%;text-align:left;font-family:'DM Sans',sans-serif}
+.faq-q svg{flex-shrink:0;color:#00e676;transition:transform .3s}
+.faq-item.open .faq-q svg{transform:rotate(180deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s;padding:0 22px;font-size:.88rem;color:#888;line-height:1.7}
+.faq-item.open .faq-a{max-height:250px;padding:0 22px 20px}
+
+/* CTA FINAL */
+#cta-final{text-align:center;position:relative;padding-bottom:50px}
+#cta-final::before{content:'';position:absolute;bottom:0;left:0;right:0;height:300px;background:radial-gradient(ellipse at 50% 100%,rgba(0,230,118,.06) 0%,transparent 60%);pointer-events:none}
+@keyframes ctaPulse{0%{box-shadow:0 0 0 0 rgba(0,230,118,.4)}70%{box-shadow:0 0 0 18px rgba(0,230,118,0)}100%{box-shadow:0 0 0 0 rgba(0,230,118,0)}}
+#cta-final .btn-primary{animation:ctaPulse 2.5s infinite}
+
+/* FOOTER */
+footer{padding:30px 0;border-top:1px solid rgba(255,255,255,.04);text-align:center;font-size:.72rem;color:#444}
+
+/* PARTICLES */
+.particles{position:fixed;inset:0;pointer-events:none;z-index:0}
+.ptc{position:absolute;width:2px;height:2px;background:#00e676;border-radius:50%;opacity:0;animation:fP linear infinite}
+@keyframes fP{0%{opacity:0;transform:translateY(100vh) scale(0)}10%{opacity:.4}90%{opacity:.4}100%{opacity:0;transform:translateY(-10vh) scale(1)}}
+
+/* Shimmer on tag */
+.tag{position:relative;overflow:hidden}
+.tag::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(0,230,118,.2),transparent);animation:tagShimmer 3s ease-in-out infinite}
+@keyframes tagShimmer{0%{left:-100%}50%{left:200%}100%{left:200%}}
+
+/* Hero glow pulse */
+#hero::after{content:'';position:absolute;bottom:-10%;left:50%;transform:translateX(-50%);width:600px;height:300px;background:radial-gradient(ellipse,rgba(0,230,118,.04),transparent 60%);animation:heroPulse 5s ease-in-out infinite;pointer-events:none;z-index:0}
+@keyframes heroPulse{0%,100%{opacity:.4;transform:translateX(-50%) scale(1)}50%{opacity:.8;transform:translateX(-50%) scale(1.2)}}
+
+/* Hero accent gradient */
+.hero-center h1 .accent{background:linear-gradient(90deg,#00e676,#69f0ae,#00c853,#00e676);background-size:300% 100%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:heroGradShift 4s ease-in-out infinite}
+@keyframes heroGradShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+
+/* Nav logo pulse */
+.nav-logo span{text-shadow:0 0 10px rgba(0,230,118,.3);animation:logoPulse 3s ease-in-out infinite}
+@keyframes logoPulse{0%,100%{text-shadow:0 0 10px rgba(0,230,118,.3)}50%{text-shadow:0 0 20px rgba(0,230,118,.5),0 0 40px rgba(0,230,118,.2)}}
+
+/* WHATSAPP FLOATING BUTTON */
+.wa-float{position:fixed;bottom:24px;right:24px;z-index:9998;display:flex;align-items:center;gap:10px}
+.wa-float-btn{width:56px;height:56px;border-radius:50%;background:#25d366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.4);transition:all .3s;cursor:pointer;border:none;text-decoration:none}
+.wa-float-btn:hover{transform:scale(1.1);box-shadow:0 6px 30px rgba(37,211,102,.5)}
+.wa-float-btn svg{width:28px;height:28px;fill:#fff}
+.wa-float-pulse{position:absolute;inset:0;border-radius:50%;background:rgba(37,211,102,.3);animation:waPulse 2s ease-out infinite;pointer-events:none}
+@keyframes waPulse{0%{transform:scale(1);opacity:.6}100%{transform:scale(1.8);opacity:0}}
+.wa-float-label{background:#1e1e24;color:#fff;font-size:.78rem;font-weight:500;padding:8px 14px;border-radius:8px;white-space:nowrap;box-shadow:0 4px 16px rgba(0,0,0,.4);opacity:0;transform:translateX(10px);transition:all .3s;pointer-events:none;border:1px solid rgba(255,255,255,.06)}
+.wa-float:hover .wa-float-label{opacity:1;transform:translateX(0)}
+
+/* ==================== RESPONSIVE ==================== */
+@media(max-width:1024px){
+  .eco-layout{grid-template-columns:1fr;gap:40px}
+  .eco-steps{padding-right:0;align-items:center}
+  .eco-steps::after{display:none}
+  .eco-step{padding-right:0}
+  .eco-step::after{display:none}
+  .eco-notifs{padding-left:0;align-items:center}
+  .eco-notifs::before{display:none}
+  .eco-ncard{margin-left:0;max-width:100%}
+  .eco-ncard::before{display:none}
+  .eco-notifs-title{text-align:center}
+}
+@media(max-width:768px){
+  .hero-stats{gap:20px}
+  .hero-stat-item .hs-num{font-size:1.2rem}
+  .nav-links{display:none}.burger{display:flex}
+  section{padding:60px 0}
+  .pain-grid-resp{grid-template-columns:1fr!important}
+  .realite-grid{grid-template-columns:1fr}
+  .compare-grid{grid-template-columns:1fr}
+  .case-grid{max-width:100%}
+  .case-metrics{grid-template-columns:1fr}
+  .sim-loss-grid{grid-template-columns:1fr}
+  .benef-card{flex:0 0 calc(50% - 10px)!important;max-width:none!important}
+  .timeline{padding-left:30px}
+  .tl-num{left:-30px;width:28px;height:28px;font-size:.7rem}
+  .tl-step{padding-left:24px}
+}
+@media(max-width:480px){
+  .btn-primary,.btn-ghost{width:100%;justify-content:center;padding:13px 20px;font-size:.88rem}
+  .sim-box{padding:28px 18px}
+  .benef-card{flex:0 0 100%!important;max-width:none!important}
+  .wa-float-label{display:none}.wa-float{bottom:16px;right:16px}.wa-float-btn{width:50px;height:50px}
+  .hero-list{padding:0 10px}
+}
+</style>
+
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '965937042998084');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=965937042998084&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+</head>
+<body>
+
+<div class="particles" id="particles"></div>
+
+<!-- NAV -->
+<nav>
+<div class="container">
+  <div class="nav-logo">FL<span>JC</span></div>
+  <div class="nav-links">
+    <a href="#ecosystem">Système</a>
+    <a href="#resultats">Résultats</a>
+    <a href="#faq">FAQ</a>
+    <a href="https://wa.link/1b83t9" target="_blank" rel="noopener" class="nav-cta">Lien WhatsApp</a>
+  </div>
+  <div class="burger" onclick="document.getElementById('mob').classList.add('open')"><span></span><span></span><span></span></div>
+</div>
+</nav>
+<div class="mob-menu" id="mob">
+  <div class="mob-close" onclick="this.parentElement.classList.remove('open')">&times;</div>
+  <a href="#ecosystem" onclick="this.parentElement.classList.remove('open')">Système</a>
+  <a href="#resultats" onclick="this.parentElement.classList.remove('open')">Résultats</a>
+  <a href="#faq" onclick="this.parentElement.classList.remove('open')">FAQ</a>
+  <a href="https://wa.link/1b83t9" target="_blank" rel="noopener" class="btn-primary" style="margin-top:8px;width:auto" onclick="this.parentElement.classList.remove('open')">Lien WhatsApp</a>
+</div>
+
+<!-- ==================== 1. HERO ==================== -->
+<section id="hero">
+<div class="container">
+  <div class="hero-center rv">
+    <span class="tag">&#9670; La Méthode FLJC</span>
+    <h1>Et si vos clients revenaient 3x plus grâce à une fidélisation <span class="accent">intégrée sur leur téléphone ?</span></h1>
+    <p style="font-size:.92rem;color:#888;margin-bottom:6px;font-weight:500">D'autres restaurants utilisent déjà FLJC pour :</p>
+    <ul class="hero-list">
+      <li>Remplir leurs temps morts</li>
+      <li>Développer leurs clients réguliers</li>
+      <li>Réduire leur dépendance aux plateformes</li>
+    </ul>
+    <div class="hero-btns">
+      <a href="https://wa.link/1b83t9" target="_blank" rel="noopener" class="btn-primary">Essayer gratuitement &rarr;</a>
+      <a href="#simulator" class="btn-ghost">Voir la démo</a>
+    </div>
+    <div class="hero-trust">7 jours gratuits <span>&middot;</span> sans carte bancaire <span>&middot;</span> 8 minutes pour lancer</div>
+    <div class="avatar-band">
+      <div class="avatar-band-txt"><strong>+37</strong> restaurants accompagnés.</div>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat-item"><div class="hs-num">+757€</div><div class="hs-lbl">par semaine générés</div></div>
+      <div class="hero-stat-item"><div class="hs-num">+37</div><div class="hs-lbl">restaurants accompagnés</div></div>
+      <div class="hero-stat-item"><div class="hs-num">+200</div><div class="hs-lbl">couverts / semaine</div></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ==================== 2. TRUST BAND ==================== -->
+<div id="trust" style="background:rgba(0,230,118,.04);border-top:1px solid rgba(0,230,118,.08);border-bottom:1px solid rgba(0,230,118,.08)">
+<div class="trust-lbl">Ils nous font confiance &mdash; +37 restaurants accompagnés</div>
+<div class="trust-scroll">
+<div class="trust-track" id="tt1">
+  <div class="trust-logo-img"><img src="le111.jpg" alt="111 Le Cent Onze" loading="lazy"></div>
+  <div class="trust-logo-img"><img src="Capture d’écran 2026-05-21 à 11.04.02.png" alt="Levinsky" loading="lazy"></div>
+  <div class="trust-logo-img"><img src="Capture d’écran 2026-05-21 à 11.04.38.png" alt="Blend" loading="lazy"></div>
+  <div class="trust-logo-img"><img src="Capture d’écran 2026-05-21 à 11.05.00.png" alt="L'ARTisan" loading="lazy"></div>
+  <div class="trust-logo-img"><img src="Capture d’écran 2026-05-21 à 11.05.53.png" alt="Art'mony Brunch" loading="lazy"></div>
+  <div class="trust-logo-img"><img src="Capture d’écran 2026-05-21 à 11.08.33.png" alt="Crousty Crispy" loading="lazy"></div>
+  <div class="trust-logo-img"><img src="Capture d’écran 2026-05-21 à 11.10.08.png" alt="Faim de Semaine" loading="lazy"></div>
+  <div class="trust-logo-img"><img src="Capture d’écran 2026-05-21 à 11.11.04.png" alt="Poulet Braisé" loading="lazy"></div>
+  <div class="trust-logo-img"><img src="Capture d’écran 2026-05-21 à 11.30.37.png" alt="Hippopotamus" loading="lazy"></div>
+  <div class="trust-logo-img"><img src="Logo+uncle-bumpy+-+2.webp" alt="Uncle Bumpy" loading="lazy"></div>
+  <div class="trust-logo-img"><img src="logo-la-pataterie-2020.jpg" alt="La Pataterie" loading="lazy"></div>
+  <div class="trust-logo-img"><img src="LOGO JUNK BLANC.avif" alt="JUNK" loading="lazy"></div>
+  <div class="trust-logo-img"><img src="le111.jpg" alt="111 Le Cent Onze" loading="lazy"></div>
+  <div class="trust-logo-img"><img src="Capture d’écran 2026-05-21 à 11.04.02.png" alt="Levinsky" loading="lazy"></div>
+  <div class="trust-logo-img"><img src="Capture d’écran 2026-05-21 à 11.04.38.png" alt="Blend" loading="lazy"></div>
+  <div class="trust-logo-img"><img src="Capture d’écran 2026-05-21 à 11.05.00.png" alt="L'ARTisan" loading="lazy"></div>
+  <div class="trust-logo-img"><img src="Capture d’écran 2026-05-21 à 11.05.53.png" alt="Art'mony Brunch" loading="lazy"></div>
+  <div class="trust-logo-img"><img src="Capture d’écran 2026-05-21 à 11.08.33.png" alt="Crousty Crispy" loading="lazy"></div>
+  <div class="trust-logo-img"><img src="Capture d’écran 2026-05-21 à 11.10.08.png" alt="Faim de Semaine" loading="lazy"></div>
+  <div class="trust-logo-img"><img src="Capture d’écran 2026-05-21 à 11.11.04.png" alt="Poulet Braisé" loading="lazy"></div>
+  <div class="trust-logo-img"><img src="Capture d’écran 2026-05-21 à 11.30.37.png" alt="Hippopotamus" loading="lazy"></div>
+  <div class="trust-logo-img"><img src="Logo+uncle-bumpy+-+2.webp" alt="Uncle Bumpy" loading="lazy"></div>
+  <div class="trust-logo-img"><img src="logo-la-pataterie-2020.jpg" alt="La Pataterie" loading="lazy"></div>
+  <div class="trust-logo-img"><img src="LOGO JUNK BLANC.avif" alt="JUNK" loading="lazy"></div>
+</div>
+</div>
+</div>
+
+<div class="gl"></div>
+
+<!-- ==================== 3. LE CONSTAT ==================== -->
+<section id="constat" style="background:linear-gradient(180deg,#060608 0%,#0c0c10 50%,#060608 100%);padding:100px 0">
+<div class="container">
+  <div class="text-center rv">
+    <span class="tag">&#9670; Le constat</span>
+    <h2 class="section-title">Des centaines de clients perdus… <span class="accent">sans même le savoir.</span></h2>
+    <p class="section-sub">Vos clients passent une fois… puis disparaissent chez un concurrent quelques jours après. Pas parce que votre restaurant est mauvais. Mais parce qu'aucun système ne les fait revenir.</p>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:14px;max-width:680px;margin:0 auto 36px" class="rv d1 pain-grid-resp">
+    <div style="display:flex;align-items:center;gap:12px;background:rgba(255,68,68,.04);border:1px solid rgba(255,68,68,.1);border-radius:12px;padding:16px 20px;font-size:.9rem;color:#ccc;transition:border-color .3s,background .3s"><span style="color:#ff4444;font-size:1rem;font-weight:700;flex-shrink:0;width:22px;height:22px;display:flex;align-items:center;justify-content:center;background:rgba(255,68,68,.1);border-radius:6px">&#10005;</span>Savent qu'ils devraient fidéliser leurs clients</div>
+    <div style="display:flex;align-items:center;gap:12px;background:rgba(255,68,68,.04);border:1px solid rgba(255,68,68,.1);border-radius:12px;padding:16px 20px;font-size:.9rem;color:#ccc;transition:border-color .3s,background .3s"><span style="color:#ff4444;font-size:1rem;font-weight:700;flex-shrink:0;width:22px;height:22px;display:flex;align-items:center;justify-content:center;background:rgba(255,68,68,.1);border-radius:6px">&#10005;</span>N'ont pas le temps de gérer ça</div>
+    <div style="display:flex;align-items:center;gap:12px;background:rgba(255,68,68,.04);border:1px solid rgba(255,68,68,.1);border-radius:12px;padding:16px 20px;font-size:.9rem;color:#ccc;transition:border-color .3s,background .3s"><span style="color:#ff4444;font-size:1rem;font-weight:700;flex-shrink:0;width:22px;height:22px;display:flex;align-items:center;justify-content:center;background:rgba(255,68,68,.1);border-radius:6px">&#10005;</span>Ne savent pas quoi mettre en place</div>
+    <div style="display:flex;align-items:center;gap:12px;background:rgba(255,68,68,.04);border:1px solid rgba(255,68,68,.1);border-radius:12px;padding:16px 20px;font-size:.9rem;color:#ccc;transition:border-color .3s,background .3s"><span style="color:#ff4444;font-size:1rem;font-weight:700;flex-shrink:0;width:22px;height:22px;display:flex;align-items:center;justify-content:center;background:rgba(255,68,68,.1);border-radius:6px">&#10005;</span>Abandonnent après quelques semaines</div>
+    <div style="display:flex;align-items:center;gap:12px;background:rgba(255,68,68,.04);border:1px solid rgba(255,68,68,.1);border-radius:12px;padding:16px 20px;font-size:.9rem;color:#ccc;transition:border-color .3s,background .3s"><span style="color:#ff4444;font-size:1rem;font-weight:700;flex-shrink:0;width:22px;height:22px;display:flex;align-items:center;justify-content:center;background:rgba(255,68,68,.1);border-radius:6px">&#10005;</span>Dépendent uniquement du passage ou d'Uber Eats</div>
+    <div style="display:flex;align-items:center;gap:12px;background:rgba(255,68,68,.04);border:1px solid rgba(255,68,68,.1);border-radius:12px;padding:16px 20px;font-size:.9rem;color:#ccc;transition:border-color .3s,background .3s"><span style="color:#ff4444;font-size:1rem;font-weight:700;flex-shrink:0;width:22px;height:22px;display:flex;align-items:center;justify-content:center;background:rgba(255,68,68,.1);border-radius:6px">&#10005;</span>Perdent des clients sans jamais les récupérer</div>
+  </div>
+  <div style="max-width:680px;margin:0 auto;text-align:center;background:linear-gradient(135deg,rgba(255,68,68,.06),rgba(255,68,68,.02));border:1px solid rgba(255,68,68,.12);border-radius:16px;padding:32px 28px" class="rv d2">
+    <h3 style="font-family:Outfit,sans-serif;font-size:1.2rem;color:#ff4444;margin-bottom:8px">Résultat ?</h3>
+    <p style="font-size:.92rem;color:#aaa;line-height:1.7">Vous travaillez constamment pour trouver de nouveaux clients… <strong style="color:#fff">au lieu de maximiser ceux que vous avez déjà.</strong></p>
+  </div>
+</div>
+</section>
+
+<div class="gl"></div>
+
+<!-- ==================== 11. SIMULATOR (PERTES — ROUGE) ==================== -->
+<section id="simulator">
+<div class="container text-center">
+  <div class="rv">
+    <span class="tag sim-tag">&#9670; Simulateur de pertes</span>
+    <h2 class="section-title">Combien <span class="sim-accent">perdez-vous</span> chaque mois sans FLJC ?</h2>
+    <p class="section-sub">Sans fidélisation, vos clients ne reviennent qu'une fois sur cinq. Calculez vos pertes actuelles.</p>
+  </div>
+  <div class="sim-box rv d1">
+    <div class="sim-slider-group">
+      <label>Couverts par semaine<span class="sim-val sim-val-red" id="sv1">80</span></label>
+      <input type="range" min="20" max="1000" value="80" id="sr1" class="sim-range sim-range-red">
+      <div class="sim-range-labels"><span>20</span><span>1000</span></div>
+    </div>
+    <div class="sim-slider-group">
+      <label>Panier moyen<span class="sim-val sim-val-red" id="sv2">25&euro;</span></label>
+      <input type="range" min="8" max="100" value="25" id="sr2" class="sim-range sim-range-red">
+      <div class="sim-range-labels"><span>8&euro;</span><span>100&euro;</span></div>
+    </div>
+    <div class="sim-slider-group">
+      <label>% qui ne reviennent jamais<span class="sim-val sim-val-red" id="sv3">70%</span></label>
+      <input type="range" min="1" max="100" value="70" id="sr3" class="sim-range sim-range-red">
+      <div class="sim-range-labels"><span>1%</span><span>100%</span></div>
+    </div>
+
+    <div class="sim-loss-grid">
+      <div class="sim-loss-card">
+        <div class="sim-loss-num" id="sl1">243</div>
+        <div class="sim-loss-label">Clients perdus / mois</div>
+      </div>
+      <div class="sim-loss-card">
+        <div class="sim-loss-num" id="sl2">486</div>
+        <div class="sim-loss-label">Visites perdues / mois</div>
+      </div>
+    </div>
+
+    <div class="sim-loss-main-card">
+      <div class="sim-loss-main-label">Perte mensuelle estimée</div>
+      <div class="sim-loss-big" id="sl3">12&nbsp;150&euro;</div>
+      <div class="sim-loss-year">Soit <strong id="sl4">145&nbsp;800&euro;</strong> / an</div>
+    </div>
+<a href="https://wa.link/1b83t9" target="_blank" rel="noopener" class="btn-sim-red">J'arrête de perdre des clients &rarr;</a>
+  </div>
+</div>
+</section>
+
+<div class="gl"></div>
+  
+<!-- ==================== 4. LA RÉALITÉ ==================== -->
+<section id="realite">
+<div class="container">
+  <div class="text-center rv">
+    <span class="tag">&#9670; La réalité</span>
+    <h2 class="section-title">Les restaurants qui <span class="accent">prospèrent</span> ont un point commun.</h2>
+    <p class="section-sub">Ce n'est pas la cuisine, ni l'emplacement. C'est leur capacité à faire revenir leurs clients.</p>
+  </div>
+  <div class="realite-grid rv d1">
+    <div class="realite-col realite-bad">
+      <div class="realite-col-head"><div class="dot"></div><h4>La majorité des restaurants</h4></div>
+      <ul class="realite-list">
+        <li><span class="ico">&#10005;</span>Dépensent en publicité sans retour</li>
+        <li><span class="ico">&#10005;</span>Dépendent des plateformes (Uber Eats, etc.)</li>
+        <li><span class="ico">&#10005;</span>Repartent de zéro chaque semaine</li>
+        <li><span class="ico">&#10005;</span>N'ont aucun système de fidélisation</li>
+        <li><span class="ico">&#10005;</span>Perdent des clients sans le savoir</li>
+      </ul>
+    </div>
+    <div class="realite-col realite-good">
+      <div class="realite-col-head"><div class="dot"></div><h4>Ceux qui réussissent</h4></div>
+      <ul class="realite-list">
+        <li><span class="ico">&#10003;</span>Plus de clients réguliers</li>
+        <li><span class="ico">&#10003;</span>Récurrence et visibilité locale</li>
+        <li><span class="ico">&#10003;</span>Contrôle de leur croissance</li>
+        <li><span class="ico">&#10003;</span>Fidélisation mobile intégrée</li>
+        <li><span class="ico">&#10003;</span>Relances automatiques &amp; événements stratégiques</li>
+      </ul>
+    </div>
+  </div>
+  <div class="realite-bottom rv d2">
+    <h4>La différence ?</h4>
+    <p>Un <strong>système de fidélisation et de réactivation</strong> qui travaille pour eux, même quand ils ne sont pas derrière leur écran.</p>
+  </div>
+</div>
+</section>
+
+<div class="gl"></div>
+
+<!-- ==================== 4. LA SOLUTION FLJC ==================== -->
+<section id="solution-fljc">
+<div class="container">
+  <div class="text-center rv">
+    <span class="tag">&#9670; Pourquoi FLJC est différent</span>
+    <h2 class="section-title">Pas une agence. Un véritable <span class="accent">partenaire de croissance.</span></h2>
+    <p class="section-sub">Les agences classiques vous vendent des prestations. Nous, on développe votre restaurant avec vous.</p>
+  </div>
+  <div class="compare-grid rv d1">
+    <div class="compare-col compare-them">
+      <div class="compare-col-head"><h4>&#128736; Les agences classiques</h4></div>
+      <ul class="compare-list">
+        <li><span class="ico">&#8226;</span>Vendent des prestations isolées</li>
+        <li><span class="ico">&#8226;</span>Publicités sans stratégie terrain</li>
+        <li><span class="ico">&#8226;</span>Posts Instagram déconnectés</li>
+        <li><span class="ico">&#8226;</span>Services hors-terrain</li>
+        <li><span class="ico">&#8226;</span>Aucun suivi de la récurrence client</li>
+      </ul>
+    </div>
+    <div class="compare-col compare-us">
+      <div class="compare-col-head"><h4>&#9889; FLJC</h4></div>
+      <ul class="compare-list">
+        <li><span class="ico">&#10003;</span>Stratégie complète et terrain</li>
+        <li><span class="ico">&#10003;</span>Fidélisation &amp; réactivation client</li>
+        <li><span class="ico">&#10003;</span>Événements stratégiques</li>
+        <li><span class="ico">&#10003;</span>Acquisition &amp; contenu</li>
+        <li><span class="ico">&#10003;</span>Visibilité locale &amp; relances automatiques</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</section>
+
+<div class="gl"></div>
+
+<!-- ==================== 5. COMMENT ÇA FONCTIONNE ==================== -->
+<section id="mecanisme">
+<div class="container">
+  <div class="text-center rv">
+    <span class="tag">&#9670; Comment ça fonctionne</span>
+    <h2 class="section-title">Un système clé en main qui transforme vos clients occasionnels <span class="accent">en clients réguliers.</span></h2>
+    <p class="section-sub">FLJC installe un véritable système de fidélisation et de réactivation directement autour de votre restaurant.</p>
+  </div>
+  <div class="meca-grid rv d1">
+    <div class="meca-item"><span class="meca-check">&#10003;</span>Intègre vos clients dans un système moderne</div>
+    <div class="meca-item"><span class="meca-check">&#10003;</span>Gère les campagnes à votre place</div>
+    <div class="meca-item"><span class="meca-check">&#10003;</span>Automatise les relances intelligentes</div>
+    <div class="meca-item"><span class="meca-check">&#10003;</span>Crée des offres et événements stratégiques</div>
+    <div class="meca-item"><span class="meca-check">&#10003;</span>Optimise le retour de vos clients en continu</div>
+  </div>
+  <p class="meca-footer rv d2">Le tout <strong>sans que vous ayez besoin de gérer quoi que ce soit.</strong></p>
+</div>
+</section>
+
+<div class="gl"></div>
+
+<!-- ==================== 6. ECOSYSTEM PHONE ==================== -->
+<section id="ecosystem">
+<div class="container">
+  <div class="eco-layout rv">
+    <div class="eco-steps">
+      <div class="eco-step"><div class="eco-step-ico">&#127978;</div><div><h6>Votre Restaurant</h6><span>Nous configurons votre univers et vos avantages.</span></div></div>
+      <div class="eco-step"><div class="eco-step-ico">&#128242;</div><div><h6>Intégration</h6><span>La carte est ajoutée en 1 clic dans le téléphone du client.</span></div></div>
+      <div class="eco-step"><div class="eco-step-ico">&#128276;</div><div><h6>Engagement</h6><span>Notifications ciblées, offres, actualités, nouveautés…</span></div></div>
+      <div class="eco-step"><div class="eco-step-ico">&#128200;</div><div><h6>Résultats</h6><span>Plus de visites, plus de clients fidèles, plus de chiffre d'affaires.</span></div></div>
+    </div>
+    <div class="eco-phone-col">
+      <div class="eco-phone-title"><h3>Votre Restaurant<br><strong>dans le téléphone<br><em>de vos clients</em></strong></h3></div>
+      <div class="eco-phone-wrap" id="ecoPhoneWrap">
+        <div class="eco-phone-glow"></div>
+        <div class="eco-radar"><div class="eco-radar-ping"></div><div class="eco-radar-ping"></div><div class="eco-radar-ping"></div></div>
+        <div class="eco-ring eco-ring-1"></div>
+        <div class="eco-ring eco-ring-2"></div>
+        <div class="eco-ring eco-ring-3"></div>
+        <div class="eco-ring eco-ring-4"></div>
+        <div class="phone" style="width:200px;height:400px;z-index:5;box-shadow:0 40px 100px rgba(0,0,0,.6),0 0 80px rgba(0,230,118,.1),0 0 140px rgba(0,230,118,.04)">
+          <div class="eco-scan"></div>
+          <div class="phone-screen" style="padding:28px 10px 8px;gap:0">
+            <div style="display:flex;justify-content:space-between;font-size:.42rem;color:#555;margin-bottom:6px;padding:0 2px"><span>9:41</span><span style="display:flex;gap:3px;align-items:center"><span style="width:10px;height:5px;border:1px solid #555;border-radius:1px;position:relative"><span style="position:absolute;left:1px;top:1px;bottom:1px;width:60%;background:#00e676;border-radius:.5px"></span></span></span></div>
+            <div style="text-align:center;padding:6px 0 8px;border-bottom:1px solid rgba(255,255,255,.04)">
+              <div style="width:28px;height:28px;margin:0 auto 4px;border-radius:8px;background:rgba(0,230,118,.1);display:flex;align-items:center;justify-content:center;font-size:.7rem">&#127869;</div>
+              <div style="font-family:Outfit;font-size:.7rem;font-weight:700;color:#fff">La Trattoria</div>
+              <div style="font-size:.42rem;color:#00e676">Restaurant Italien — Lyon 2e</div>
+            </div>
+            <div style="margin:8px 0;padding:8px;border-radius:8px;background:linear-gradient(135deg,rgba(0,230,118,.06),rgba(0,230,118,.02));border:1px solid rgba(0,230,118,.08)">
+              <div style="font-size:.48rem;color:#888;margin-bottom:4px">Carte de fidélité</div>
+              <div style="display:flex;gap:4px;margin-bottom:4px">
+                <span style="flex:1;height:4px;border-radius:2px;background:#00e676"></span>
+                <span style="flex:1;height:4px;border-radius:2px;background:#00e676"></span>
+                <span style="flex:1;height:4px;border-radius:2px;background:#00e676"></span>
+                <span style="flex:1;height:4px;border-radius:2px;background:#00e676"></span>
+                <span style="flex:1;height:4px;border-radius:2px;background:rgba(255,255,255,.06)"></span>
+                <span style="flex:1;height:4px;border-radius:2px;background:rgba(255,255,255,.06)"></span>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:.45rem;color:#ccc">4/6 visites</span><span style="font-size:.42rem;color:#00e676;font-weight:600">Prochain : Menu offert</span></div>
+            </div>
+            <div style="font-size:.48rem;color:#888;margin:4px 0 3px;font-weight:600">Offres du moment</div>
+            <div style="padding:6px 8px;border-radius:7px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.04);margin-bottom:4px;display:flex;align-items:center;gap:6px">
+              <span style="font-size:.65rem">&#128293;</span>
+              <div><div style="font-size:.48rem;font-weight:600;color:#ddd">Happy Hour -30%</div><div style="font-size:.38rem;color:#666">Aujourd'hui 17h-19h</div></div>
+              <span style="margin-left:auto;font-size:.38rem;padding:2px 5px;border-radius:4px;background:rgba(0,230,118,.1);color:#00e676;font-weight:600">ACTIF</span>
+            </div>
+            <div style="padding:6px 8px;border-radius:7px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.04);display:flex;align-items:center;gap:6px">
+              <span style="font-size:.65rem">&#127881;</span>
+              <div><div style="font-size:.48rem;font-weight:600;color:#ddd">Soirée Jazz</div><div style="font-size:.38rem;color:#666">Vendredi 20h — Réservez</div></div>
+              <span style="margin-left:auto;font-size:.38rem;padding:2px 5px;border-radius:4px;background:rgba(255,152,0,.1);color:#ff9800;font-weight:600">BIENTÔT</span>
+            </div>
+            <div style="margin-top:auto;display:flex;justify-content:space-around;padding:6px 0 2px;border-top:1px solid rgba(255,255,255,.04)">
+              <div style="text-align:center"><div style="font-size:.6rem">&#127968;</div><div style="font-size:.35rem;color:#00e676;font-weight:600">Accueil</div></div>
+              <div style="text-align:center"><div style="font-size:.6rem">&#127873;</div><div style="font-size:.35rem;color:#555">Offres</div></div>
+              <div style="text-align:center"><div style="font-size:.6rem">&#128203;</div><div style="font-size:.35rem;color:#555">Carte</div></div>
+              <div style="text-align:center"><div style="font-size:.6rem">&#128100;</div><div style="font-size:.35rem;color:#555">Profil</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="eco-phone-reflect"></div>
+      </div>
+      <div class="eco-tagline"><h4>Fidélisation intégrée<br><strong>qui fait revenir vos clients</strong></h4></div>
+    </div>
+    <div class="eco-notifs">
+      <div class="eco-notifs-title">Présent 24h/24 dans leur quotidien</div>
+      <div class="eco-ncard"><div class="eco-ncard-ico">&#128293;</div><div class="eco-ncard-body"><h6>Votre Restaurant <time>12:30</time></h6><span>L'offre du moment rien que pour vous !</span></div></div>
+      <div class="eco-ncard"><div class="eco-ncard-ico">&#11088;</div><div class="eco-ncard-body"><h6>Votre Restaurant <time>18:45</time></h6><span>Votre 6ème visite vous rapproche !</span></div></div>
+      <div class="eco-ncard"><div class="eco-ncard-ico">&#127869;</div><div class="eco-ncard-body"><h6>Votre Restaurant <time>12:00</time></h6><span>Nouveau plat à découvrir cette semaine</span></div></div>
+      <div class="eco-ncard"><div class="eco-ncard-ico">&#127873;</div><div class="eco-ncard-body"><h6>Votre Restaurant <time>20:15</time></h6><span>Votre menu offert vous attend !</span></div></div>
+    </div>
+  </div>
+  <div class="eco-bottom rv d1">
+    <p>Plus de visites. Plus de fidèles. Moins de dépendance aux plateformes.</p>
+  </div>
+</div>
+</section>
+
+<div class="gl"></div>
+
+<!-- ==================== 7. SUR LE TERRAIN ==================== -->
+<section id="terrain">
+<div class="container">
+  <div class="text-center rv">
+    <span class="tag">&#9670; Sur le terrain avec nos clients</span>
+    <h2 class="section-title">Pendant que certaines agences restent derrière un ordinateur…</h2>
+  </div>
+  <div class="terrain-content rv d1">
+    <p><strong>Nous développons directement les restaurants sur le terrain.</strong></p>
+    <p>Événements, fidélisation, contenu, relances, stratégies locales… nous sommes présents physiquement avec nos clients pour comprendre leur réalité et maximiser leurs résultats.</p>
+  </div>
+</div>
+</section>
+
+<div class="gl"></div>
+
+<!-- ==================== 8. ÉTUDES DE CAS ==================== -->
+<section id="resultats">
+<div class="container">
+  <div class="text-center rv">
+    <span class="tag">&#9670; Résultats</span>
+    <h2 class="section-title">Ils ont transformé leur <span class="accent">restaurant</span></h2>
+    <p class="section-sub">Découvrez comment nos partenaires ont rempli leurs salles grâce à la méthode FLJC.</p>
+  </div>
+  <div class="case-grid">
+    <!-- Case Study 1: L'ARTisan Pâtissier -->
+    <div class="case-card rv">
+      <div class="case-img case-img-1">
+        <div class="case-img-overlay"></div>
+        <div class="case-img-owner"><img src="https://images.unsplash.com/photo-1517433670267-08bbd4be890f?w=800&h=400&fit=crop" alt="L'ARTisan Pâtissier"></div>
+      </div>
+      <div class="case-body">
+<div class="case-video" onclick="this.innerHTML='<iframe src=\'https://youtube.com/embed/fxZkbxNiGZY?autoplay=1\' allow=\'accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture\' allowfullscreen style=\'width:100%;height:100%;border:none;position:absolute;top:0;left:0;border-radius:12px\'></iframe>';this.style.cursor='default'">
+  <img src="https://img.youtube.com/vi/fxZkbxNiGZY/hqdefault.jpg" style="width:100%;display:block;border-radius:12px" alt="Vidéo">
+  <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:64px;height:64px;background:#00e676;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 20px rgba(0,230,118,.4)">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="#060608"><polygon points="8,5 20,12 8,19"/></svg>
+  </div>
+</div>
+        <div class="case-badge">Étude de cas #1</div>
+        <h3 class="case-name">L'ARTisan Pâtissier</h3>
+        <p class="case-loc">Pâtisserie / Salon de thé — Événementiel &amp; fidélisation</p>
+        <div class="case-stats">
+          <div class="case-stat"><div class="case-stat-label">Résultat clé</div><div class="case-stat-val case-green">+300 personnes</div></div>
+          <div class="case-stat-arrow">&rarr;</div>
+          <div class="case-stat"><div class="case-stat-label">Événement 10 ans</div><div class="case-stat-val case-green">Venue du Maire</div></div>
+        </div>
+        <div class="case-quote">
+          <p>&laquo; Je pensais faire une petite soirée… au final la rue était pleine à craquée, c'était complètement dingue !! &raquo;</p>
+          <div class="case-quote-auth">&mdash; Marwane, Fondateur <a href="https://www.instagram.com/l.artisan_patissier/" target="_blank" rel="noopener" style="color:#00e676;text-decoration:underline">@L'ARTisan Pâtissier</a></div>
+        </div>
+        <div class="case-metrics">
+          <div class="case-metric"><span class="case-metric-num">+300</span><span class="case-metric-lbl">personnes présentes</span></div>
+          <div class="case-metric"><span class="case-metric-num">10 ans</span><span class="case-metric-lbl">anniversaire célébré</span></div>
+          <div class="case-metric"><span class="case-metric-num">Maire</span><span class="case-metric-lbl">présent à l'événement</span></div>
+        </div>
+      </div>
+    </div>
+    <!-- Case Study 2: La Table Libanaise -->
+    <div class="case-body">
+    <div class="case-card rv d1">
+      <div class="case-img case-img-2">
+        <div class="case-img-overlay"></div>
+        <div class="case-img-owner"><img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&h=400&fit=crop" alt="La Table Libanaise"></div>
+      </div>
+      <div class="case-body">
+<div class="case-video" onclick="this.innerHTML='<iframe src=\'https://youtube.com/embed/TZp48Whn5vQ?autoplay=1\' allow=\'accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture\' allowfullscreen style=\'width:100%;height:100%;border:none;position:absolute;top:0;left:0;border-radius:12px\'></iframe>';this.style.cursor='default'">
+  <img src="https://img.youtube.com/vi/TZp48Whn5vQ/hqdefault.jpg" style="width:100%;display:block;border-radius:12px" alt="Vidéo">
+  <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:64px;height:64px;background:#00e676;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 20px rgba(0,230,118,.4)">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="#060608"><polygon points="8,5 20,12 8,19"/></svg>
+  </div>
+</div>
+        <div class="case-badge">Étude de cas #2</div>
+        <h3 class="case-name">La Table Libanaise</h3>
+        <p class="case-loc">Restaurant Libanais — Lancement brunch 100% libanais à Paris</p>
+        <div class="case-stats">
+          <div class="case-stat"><div class="case-stat-label">Action</div><div class="case-stat-val case-green">Lancement brunch</div></div>
+          <div class="case-stat-arrow">&rarr;</div>
+          <div class="case-stat"><div class="case-stat-label">Résultat</div><div class="case-stat-val case-green">Rempli dès le début</div></div>
+        </div>
+        <div class="case-quote">
+          <p>&laquo; Honnêtement, je ne pensais pas qu'un lancement pouvait créer autant d'engouement. &raquo;</p>
+          <div class="case-quote-auth">&mdash; Équipe La Table Libanaise <a href="https://www.instagram.com/la_tablelibanaise/" target="_blank" rel="noopener" style="color:#00e676;text-decoration:underline">@La Table Libanaise</a></div>
+        </div>
+        <div class="case-metrics">
+          <div class="case-metric"><span class="case-metric-num">100%</span><span class="case-metric-lbl">libanais authentique</span></div>
+          <div class="case-metric"><span class="case-metric-num">Complet</span><span class="case-metric-lbl">dès les 1ères semaines</span></div>
+          <div class="case-metric"><span class="case-metric-num">Brunch</span><span class="case-metric-lbl">concept lancé</span></div>
+        </div>
+      </div>
+    </div>
+    <!-- Case Study 3: Jad Bakery -->
+    <div class="case-body">
+    <div class="case-card rv d2">
+      <div class="case-img case-img-1">
+        <div class="case-img-overlay"></div>
+        <div class="case-img-owner"><img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?w=800&h=400&fit=crop" alt="Jad Bakery"></div>
+      </div>
+      <div class="case-body">
+<div class="case-video" onclick="this.innerHTML='<iframe src=\'https://youtube.com/embed/1pqK-n8pCI4?autoplay=1\' allow=\'accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture\' allowfullscreen style=\'width:100%;height:100%;border:none;position:absolute;top:0;left:0;border-radius:12px\'></iframe>';this.style.cursor='default'">
+  <img src="https://img.youtube.com/vi/1pqK-n8pCI4/hqdefault.jpg" style="width:100%;display:block;border-radius:12px" alt="Vidéo">
+  <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:64px;height:64px;background:#00e676;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 20px rgba(0,230,118,.4)">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="#060608"><polygon points="8,5 20,12 8,19"/></svg>
+  </div>
+</div>
+        <div class="case-badge">Étude de cas #3</div>
+        <h3 class="case-name">Jad Bakery</h3>
+        <p class="case-loc">Boulangerie / Coffee Shop — Ouverture</p>
+        <div class="case-stats">
+          <div class="case-stat"><div class="case-stat-label">Action</div><div class="case-stat-val case-green">Ouverture</div></div>
+          <div class="case-stat-arrow">&rarr;</div>
+          <div class="case-stat"><div class="case-stat-label">Résultat</div><div class="case-stat-val case-green">Énorme affluence</div></div>
+        </div>
+        <div class="case-quote">
+          <p>&laquo; On a été surpris par le monde dès l'ouverture, il y avait une vraie attente. &raquo;</p>
+          <div class="case-quote-auth">&mdash; Jad, Fondateur <a href="https://www.instagram.com/jad.bakery/" target="_blank" rel="noopener" style="color:#00e676;text-decoration:underline">@Jad Bakery</a></div>
+        </div>
+        <div class="case-metrics">
+          <div class="case-metric"><span class="case-metric-num">J1</span><span class="case-metric-lbl">affluence record</span></div>
+          <div class="case-metric"><span class="case-metric-num">Buzz</span><span class="case-metric-lbl">créé avant ouverture</span></div>
+          <div class="case-metric"><span class="case-metric-num">File</span><span class="case-metric-lbl">d'attente dès le 1er jour</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<div class="gl"></div>
+
+<!-- ==================== 9. CE QUE FLJC VOUS APPORTE ==================== -->
+<section id="apports">
+<div class="container text-center">
+  <div class="rv">
+    <span class="tag">&#9670; Les bénéfices</span>
+    <h2 class="section-title">Plus qu'un service marketing. Un véritable <span class="accent">bras droit</span> pour votre restaurant.</h2>
+  </div>
+  <div class="benef-grid">
+    <div class="benef-card rv">
+      <div class="benef-ico"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="14" stroke="#00e676" stroke-width="1.5" fill="rgba(0,230,118,.06)"/><path d="M16 8V16L22 20" stroke="#00e676" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+      <h4>Du temps</h4>
+      <p>Restez concentré sur votre restaurant pendant que nous gérons la fidélisation.</p>
+    </div>
+    <div class="benef-card rv d1">
+      <div class="benef-ico"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="14" stroke="#00e676" stroke-width="1.5" fill="rgba(0,230,118,.06)"/><path d="M10 18C12 22 20 22 22 18" stroke="#00e676" stroke-width="1.5" stroke-linecap="round"/><circle cx="12" cy="13" r="1.5" fill="#00e676"/><circle cx="20" cy="13" r="1.5" fill="#00e676"/></svg></div>
+      <h4>De la tranquillité</h4>
+      <p>Plus besoin de penser aux campagnes, relances ou stratégies compliquées.</p>
+    </div>
+    <div class="benef-card rv d2">
+      <div class="benef-ico"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="14" stroke="#00e676" stroke-width="1.5" fill="rgba(0,230,118,.06)"/><path d="M10 20L14 12L18 18L22 10" stroke="#00e676" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <h4>De la récurrence</h4>
+      <p>Vos clients reviennent plus souvent grâce à des mécanismes automatisés.</p>
+    </div>
+    <div class="benef-card rv d3">
+      <div class="benef-ico"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="14" stroke="#00e676" stroke-width="1.5" fill="rgba(0,230,118,.06)"/><path d="M10 22V14M16 22V10M22 22V16" stroke="#00e676" stroke-width="2" stroke-linecap="round"/></svg></div>
+      <h4>Une croissance stable</h4>
+      <p>Moins de dépendance au hasard, aux plateformes et aux périodes creuses.</p>
+    </div>
+    <div class="benef-card rv d4">
+      <div class="benef-ico"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="14" stroke="#00e676" stroke-width="1.5" fill="rgba(0,230,118,.06)"/><path d="M10 16C10 16 13 20 16 20C19 20 22 16 22 16" stroke="#00e676" stroke-width="1.5" stroke-linecap="round"/><path d="M12 12L14 14M20 12L18 14" stroke="#00e676" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+      <h4>Un vrai partenaire</h4>
+      <p>Nous suivons les performances et optimisons continuellement votre croissance.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<div class="gl"></div>
+
+<!-- ==================== 10. MÉTHODE FLJC TIMELINE ==================== -->
+<section id="methode-fljc">
+<div class="container">
+  <div class="text-center rv">
+    <span class="tag">&#9670; La Méthode FLJC&#8482;</span>
+    <h2 class="section-title">4 étapes pour transformer vos clients <span class="accent">en habitués.</span></h2>
+  </div>
+  <div class="timeline">
+    <div class="tl-line"></div>
+    <div class="tl-step rv">
+      <div class="tl-num">01</div>
+      <div class="tl-content"><h4>Installation</h4><p>Nous intégrons votre restaurant directement dans le téléphone de vos clients grâce à une fidélisation nouvelle génération.</p></div>
+    </div>
+    <div class="tl-step rv d1">
+      <div class="tl-num">02</div>
+      <div class="tl-content"><h4>Activation</h4><p>Relances intelligentes, avantages stratégiques, événements, automatisations et réactivation des anciens clients pour faire revenir naturellement votre clientèle.</p></div>
+    </div>
+    <div class="tl-step rv d2">
+      <div class="tl-num">03</div>
+      <div class="tl-content"><h4>Gestion</h4><p>Notre équipe pilote toute la stratégie et l'optimisation pour vous éviter une charge mentale supplémentaire.</p></div>
+    </div>
+    <div class="tl-step rv d3">
+      <div class="tl-num">04</div>
+      <div class="tl-content"><h4>Croissance</h4><p>Plus de récurrence, plus de visibilité locale, plus de clients réguliers, moins de dépendance aux plateformes.</p></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<div class="gl"></div>
+
+<!-- ==================== 12. FAQ ==================== -->
+<section id="faq">
+<div class="container">
+  <div class="text-center rv">
+    <span class="tag">&#9670; FAQ</span>
+    <h2 class="section-title">Questions fréquentes</h2>
+  </div>
+  <div class="faq-list rv d1">
+    <div class="faq-item">
+      <button class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+        <span>C'est quoi concrètement FLJC ?</span>
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5.5L7 9.5L11 5.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </button>
+      <div class="faq-a"><p>FLJC est un service clé en main de fidélisation pour restaurants. Nous installons un système complet (fidélisation mobile, WhatsApp, SMS, QR codes, événements) et gérons tout pour vous.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+        <span>Combien ça coûte ?</span>
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5.5L7 9.5L11 5.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </button>
+      <div class="faq-a"><p>Nous proposons un premier échange gratuit pour comprendre vos besoins. Les tarifs dépendent de la taille de votre établissement et du niveau d'accompagnement souhaité.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+        <span>Est-ce que je dois gérer quelque chose ?</span>
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5.5L7 9.5L11 5.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </button>
+      <div class="faq-a"><p>Non. Notre équipe s'occupe de tout : mise en place, stratégie, campagnes, suivi. Vous n'avez qu'à accueillir vos clients.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+        <span>En combien de temps je vois des résultats ?</span>
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5.5L7 9.5L11 5.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </button>
+      <div class="faq-a"><p>La plupart de nos partenaires constatent une amélioration dès les 2 premières semaines, avec des résultats significatifs au bout d'un mois.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+        <span>Ça marche pour quel type de restaurant ?</span>
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5.5L7 9.5L11 5.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </button>
+      <div class="faq-a"><p>Restaurants, brasseries, pizzerias, fast-foods, coffee shops, bars… Tout établissement qui reçoit des clients réguliers et veut les voir revenir plus souvent.</p></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<div class="gl"></div>
+
+<!-- ==================== 13. TRUST BAND 2 ==================== -->
+<section class="trust-section" style="padding:30px 0">
+<div id="trust" style="background:rgba(0,230,118,.04);border-top:1px solid rgba(0,230,118,.08);border-bottom:1px solid rgba(0,230,118,.08)">
+<div class="trust-lbl">Ils nous font confiance &mdash; +37 restaurants accompagnés</div>
+<div class="trust-scroll">
+<div class="trust-track" id="tt1">
+  <div class="trust-logo-img"><img src="le111.jpg" alt="111 Le Cent Onze" loading="lazy"></div>
+  <div class="trust-logo-img"><img src="Capture d’écran 2026-05-21 à 11.04.02.png" alt="Levinsky" loading="lazy"></div>
+  <div class="trust-logo-img"><img src="Capture d’écran 2026-05-21 à 11.04.38.png" alt="Blend" loading="lazy"></div>
+  <div class="trust-logo-img"><img src="Capture d’écran 2026-05-21 à 11.05.00.png" alt="L'ARTisan" loading="lazy"></div>
+  <div class="trust-logo-img"><img src="Capture d’écran 2026-05-21 à 11.05.53.png" alt="Art'mony Brunch" loading="lazy"></div>
+  <div class="trust-logo-img"><img src="Capture d’écran 2026-05-21 à 11.08.33.png" alt="Crousty Crispy" loading="lazy"></div>
+  <div class="trust-logo-img"><img src="Capture d’écran 2026-05-21 à 11.10.08.png" alt="Faim de Semaine" loading="lazy"></div>
+  <div class="trust-logo-img"><img src="Capture d’écran 2026-05-21 à 11.11.04.png" alt="Poulet Braisé" loading="lazy"></div>
+  <div class="trust-logo-img"><img src="Capture d’écran 2026-05-21 à 11.30.37.png" alt="Hippopotamus" loading="lazy"></div>
+  <div class="trust-logo-img"><img src="Logo+uncle-bumpy+-+2.webp" alt="Uncle Bumpy" loading="lazy"></div>
+  <div class="trust-logo-img"><img src="logo-la-pataterie-2020.jpg" alt="La Pataterie" loading="lazy"></div>
+  <div class="trust-logo-img"><img src="LOGO JUNK BLANC.avif" alt="JUNK" loading="lazy"></div>
+  <div class="trust-logo-img"><img src="le111.jpg" alt="111 Le Cent Onze" loading="lazy"></div>
+  <div class="trust-logo-img"><img src="Capture d’écran 2026-05-21 à 11.04.02.png" alt="Levinsky" loading="lazy"></div>
+  <div class="trust-logo-img"><img src="Capture d’écran 2026-05-21 à 11.04.38.png" alt="Blend" loading="lazy"></div>
+  <div class="trust-logo-img"><img src="Capture d’écran 2026-05-21 à 11.05.00.png" alt="L'ARTisan" loading="lazy"></div>
+  <div class="trust-logo-img"><img src="Capture d’écran 2026-05-21 à 11.05.53.png" alt="Art'mony Brunch" loading="lazy"></div>
+  <div class="trust-logo-img"><img src="Capture d’écran 2026-05-21 à 11.08.33.png" alt="Crousty Crispy" loading="lazy"></div>
+  <div class="trust-logo-img"><img src="Capture d’écran 2026-05-21 à 11.10.08.png" alt="Faim de Semaine" loading="lazy"></div>
+  <div class="trust-logo-img"><img src="Capture d’écran 2026-05-21 à 11.11.04.png" alt="Poulet Braisé" loading="lazy"></div>
+  <div class="trust-logo-img"><img src="Capture d’écran 2026-05-21 à 11.30.37.png" alt="Hippopotamus" loading="lazy"></div>
+  <div class="trust-logo-img"><img src="Logo+uncle-bumpy+-+2.webp" alt="Uncle Bumpy" loading="lazy"></div>
+  <div class="trust-logo-img"><img src="logo-la-pataterie-2020.jpg" alt="La Pataterie" loading="lazy"></div>
+  <div class="trust-logo-img"><img src="LOGO JUNK BLANC.avif" alt="JUNK" loading="lazy"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ==================== 14. CTA FINAL ==================== -->
+<section id="cta-final">
+<div class="container text-center">
+  <div class="rv">
+    <span class="tag">&#9670; Passer à l'action</span>
+    <h2 class="section-title">Prêt à remplir votre restaurant <span class="accent">sans effort ?</span></h2>
+    <p class="section-sub">Rejoignez les +37 restaurants qui utilisent déjà FLJC pour faire revenir leurs clients automatiquement.</p>
+    <div class="hero-btns" style="margin-top:32px">
+      <a href="https://wa.link/1b83t9" target="_blank" rel="noopener" class="btn-primary">Passer à l'action &rarr;</a>
+    </div>
+    <div class="avatar-band" style="margin-top:20px">
+      <span class="avatar-band-txt"><strong>+37</strong> restaurants accompagnés</span>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer style="padding:40px 0;border-top:1px solid rgba(255,255,255,.04)">
+<div class="container" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+  <div style="font-family:'Outfit',sans-serif;font-weight:700;font-size:1.1rem"><span style="color:#fff">FL</span><span style="color:#00e676">JC</span></div>
+  <div style="display:flex;align-items:center;gap:16px">
+    <a href="https://www.instagram.com/finislesjourscreux/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;color:#888;font-size:.78rem;transition:color .3s" onmouseover="this.style.color='#00e676'" onmouseout="this.style.color='#888'">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+      @finislesjourscreux
+    </a>
+  </div>
+  <div style="display:flex;align-items:center;gap:16px;font-size:.72rem;color:#555">
+    <span>&copy; 2025 FLJC. Tous droits réservés.</span>
+    <a href="#" onclick="document.getElementById('legalModal').style.display='flex';return false;" style="color:#666;text-decoration:underline;transition:color .3s" onmouseover="this.style.color='#00e676'" onmouseout="this.style.color='#666'">Mentions légales</a>
+  </div>
+</div>
+</footer>
+
+<!-- MENTIONS LÉGALES MODAL -->
+<div id="legalModal" style="display:none;position:fixed;inset:0;z-index:10000;background:rgba(6,6,8,.92);backdrop-filter:blur(12px);align-items:center;justify-content:center;padding:24px;overflow-y:auto">
+<div style="max-width:720px;width:100%;max-height:90vh;overflow-y:auto;background:#0d0d12;border:1px solid rgba(255,255,255,.06);border-radius:18px;padding:40px 36px;position:relative;color:#bbb;font-size:.85rem;line-height:1.8">
+  <button onclick="document.getElementById('legalModal').style.display='none'" style="position:sticky;top:0;float:right;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:8px;color:#fff;font-size:1.2rem;cursor:pointer;width:36px;height:36px;display:flex;align-items:center;justify-content:center;z-index:2">&times;</button>
+  <h2 style="font-family:Outfit,sans-serif;font-size:1.6rem;color:#fff;margin-bottom:24px">Mentions <span style="color:#00e676">légales</span></h2>
+  <h3 style="font-family:Outfit,sans-serif;font-size:1rem;color:#00e676;margin:24px 0 8px">Éditeur du site</h3>
+  <p>Le présent site internet, accessible à l'adresse : <a href="https://finislesjourscreux.fr" target="_blank" style="color:#00e676">finislesjourscreux.fr</a>, est édité sous le nom commercial : <strong style="color:#fff">Finis Les Jours Creux (FLJC)</strong></p>
+  <p>Entreprise exploitante : LEBRETON LOLA<br>Entreprise individuelle – Micro-entreprise<br>SIREN : 989 958 731<br>SIRET : 989 958 731 00014<br>RCS Melun : 989 958 731 R.C.S. Melun<br>TVA intracommunautaire : FR45989958731</p>
+  <p>Adresse du siège social : 10 Rue Françoise Rosay, 77173 Chevry-Cossigny – France</p>
+  <p>Activité : Création et gestion de systèmes de fidélisation digitale, rétention client, campagnes marketing, solutions digitales et accompagnement pour restaurants et commerces.</p>
+  <p>Directrice de la publication : <strong style="color:#fff">Lola Lebreton</strong></p>
+  <p>Contact : <a href="mailto:contact.finislesjourscreux@gmail.com" style="color:#00e676">contact.finislesjourscreux@gmail.com</a><br>Instagram : <a href="https://www.instagram.com/finislesjourscreux/" target="_blank" style="color:#00e676">@finislesjourscreux</a></p>
+  <h3 style="font-family:Outfit,sans-serif;font-size:1rem;color:#00e676;margin:24px 0 8px">Hébergement</h3>
+  <p>Le site est hébergé par : HOSTINGER INTERNATIONAL LTD<br>61 Lordou Vironos Street, 6023 Larnaca – Chypre<br>Support : <a href="mailto:support@hostinger.com" style="color:#00e676">support@hostinger.com</a></p>
+  <h3 style="font-family:Outfit,sans-serif;font-size:1rem;color:#00e676;margin:24px 0 8px">Propriété intellectuelle</h3>
+  <p>L'ensemble des contenus présents sur ce site (textes, images, vidéos, logos, éléments graphiques, animations, marques, concepts, etc.) sont protégés par le droit de la propriété intellectuelle. Toute reproduction, modification, diffusion ou exploitation, totale ou partielle, sans autorisation écrite préalable est strictement interdite.</p>
+  <h3 style="font-family:Outfit,sans-serif;font-size:1rem;color:#00e676;margin:24px 0 8px">Responsabilité</h3>
+  <p>Les informations diffusées sur le site sont fournies à titre informatif. FLJC s'efforce de fournir des informations aussi précises que possible, mais ne peut garantir l'absence d'erreurs ou d'omissions. Les résultats présentés dépendent de nombreux facteurs propres à chaque établissement et ne constituent pas une garantie de résultat systématique.</p>
+  <h3 style="font-family:Outfit,sans-serif;font-size:1rem;color:#00e676;margin:24px 0 8px">Données personnelles</h3>
+  <p>Les informations collectées via le site sont utilisées uniquement dans le cadre de la relation commerciale entre FLJC et ses utilisateurs. Conformément au RGPD, vous disposez des droits suivants : droit d'accès, droit de rectification, droit de suppression, droit d'opposition, droit à la limitation du traitement.</p>
+  <p>Pour exercer ces droits : <a href="mailto:contact.finislesjourscreux@gmail.com" style="color:#00e676">contact.finislesjourscreux@gmail.com</a><br>Aucune donnée personnelle n'est revendue à des tiers.</p>
+  <h3 style="font-family:Outfit,sans-serif;font-size:1rem;color:#00e676;margin:24px 0 8px">Cookies</h3>
+  <p>Le site peut utiliser des cookies afin d'améliorer l'expérience utilisateur et de mesurer l'audience. L'utilisateur peut modifier ses préférences de cookies à tout moment depuis son navigateur.</p>
+  <h3 style="font-family:Outfit,sans-serif;font-size:1rem;color:#00e676;margin:24px 0 8px">Droit applicable</h3>
+  <p>Les présentes mentions légales sont régies par le droit français. En cas de litige, et après tentative de résolution amiable, les tribunaux français seront seuls compétents.</p>
+</div>
+</div>
+
+<!-- SCRIPTS -->
+<script>
+// Scroll reveal
+const ro=new IntersectionObserver((e)=>{e.forEach(e=>{if(e.isIntersecting){e.target.classList.add('v');ro.unobserve(e.target)}})},{threshold:.12});
+document.querySelectorAll('.rv').forEach(e=>ro.observe(e));
+
+// Mouse follow
+document.querySelectorAll('section').forEach(s=>{
+  s.addEventListener('mousemove',e=>{const r=s.getBoundingClientRect();s.style.setProperty('--mouse-x',e.clientX-r.left+'px');s.style.setProperty('--mouse-y',e.clientY-r.top+'px')});
+});
+
+// Magnetic CTA
+document.querySelectorAll('.btn-primary').forEach(btn=>{
+  btn.addEventListener('mousemove',e=>{const r=btn.getBoundingClientRect();const x=e.clientX-r.left-r.width/2;const y=e.clientY-r.top-r.height/2;btn.style.transform=`translate(${x*.15}px,${y*.15}px) scale(1.02)`});
+  btn.addEventListener('mouseleave',()=>{btn.style.transform=''});
+});
+
+// Mobile menu
+const burger=document.querySelector('.burger');
+const mobMenu=document.querySelector('.mob-menu');
+const mobClose=document.querySelector('.mob-close');
+if(burger&&mobMenu){
+  burger.addEventListener('click',()=>mobMenu.classList.add('open'));
+  mobClose.addEventListener('click',()=>mobMenu.classList.remove('open'));
+  mobMenu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>mobMenu.classList.remove('open')));
+}
+
+// Nav shrink
+window.addEventListener('scroll',()=>{
+  document.querySelector('nav').style.padding=window.scrollY>60?'8px 0':'14px 0';
+});
+
+// Scroll progress bar
+const prog=document.createElement('div');
+prog.style.cssText='position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,#00e676,#00c853);z-index:9999;transition:width .1s';
+document.body.appendChild(prog);
+window.addEventListener('scroll',()=>{const h=document.documentElement.scrollHeight-window.innerHeight;prog.style.width=(window.scrollY/h*100)+'%'});
+
+// Counter animation
+function animateCounters(){
+  document.querySelectorAll('.hs-num').forEach(el=>{
+    const txt=el.textContent;
+    const match=txt.match(/([+]?)([\d\s]+)(.*)/);
+    if(!match)return;
+    const prefix=match[1];const target=parseInt(match[2].replace(/\s/g,''));const suffix=match[3];
+    let start=0;const dur=2000;const startTime=performance.now();
+    function step(now){
+      const p=Math.min((now-startTime)/dur,1);
+      const ease=1-Math.pow(1-p,3);
+      const val=Math.floor(ease*target);
+      el.textContent=prefix+val.toLocaleString('fr-FR')+suffix;
+      if(p<1)requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  });
+}
+const heroObs=new IntersectionObserver((e)=>{if(e[0].isIntersecting){animateCounters();heroObs.disconnect();}},{threshold:.3});
+const heroEl=document.querySelector('.hero-stats');
+if(heroEl)heroObs.observe(heroEl);
+
+// Simulator
+function updateSim(){
+  const c=parseInt(document.getElementById('sr1').value);
+  const p=parseInt(document.getElementById('sr2').value);
+  const t=parseInt(document.getElementById('sr3').value);
+  document.getElementById('sv1').textContent=c;
+  document.getElementById('sv2').innerHTML=p+'&euro;';
+  document.getElementById('sv3').textContent=t+'%';
+  const perdus=Math.round(c*(t/100)*4.33);
+  const visites=perdus*2;
+  const perteMois=visites*p;
+  const perteAn=perteMois*12;
+  document.getElementById('sl1').textContent=perdus.toLocaleString('fr-FR');
+  document.getElementById('sl2').textContent=visites.toLocaleString('fr-FR');
+  document.getElementById('sl3').innerHTML=perteMois.toLocaleString('fr-FR')+'&euro;';
+  document.getElementById('sl4').innerHTML=perteAn.toLocaleString('fr-FR')+'&euro;';
+}
+['sr1','sr2','sr3'].forEach(id=>{
+  const el=document.getElementById(id);
+  if(el)el.addEventListener('input',updateSim);
+});
+updateSim();
+
+// Legal modal — close on Escape or click outside
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){document.getElementById('legalModal').style.display='none'}});
+document.getElementById('legalModal').addEventListener('click',function(e){if(e.target===this)this.style.display='none'});
+</script>
+
+<!-- WHATSAPP FLOATING BUTTON -->
+<a href="https://wa.me/33618112226" target="_blank" rel="noopener" class="wa-float" id="waFloat">
+  <div class="wa-float-label">Écrivez-nous sur WhatsApp</div>
+  <div class="wa-float-btn" style="position:relative">
+    <div class="wa-float-pulse"></div>
+    <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M16.004 0h-.008C7.174 0 0 7.176 0 16c0 3.5 1.128 6.744 3.046 9.378L1.054 31.29l6.118-1.958A15.9 15.9 0 0016.004 32C24.826 32 32 24.822 32 16S24.826 0 16.004 0zm9.31 22.608c-.39 1.098-1.932 2.01-3.174 2.276-.852.18-1.964.324-5.71-1.226-4.796-1.984-7.882-6.842-8.12-7.16-.23-.318-1.93-2.572-1.93-4.906 0-2.334 1.222-3.48 1.656-3.956.39-.432.918-.608 1.224-.608.152 0 .288.008.41.014.434.018.652.044.938.724.358.852 1.228 2.946 1.336 3.162.108.216.216.504.072.804-.136.308-.256.5-.472.768-.216.27-.454.478-.67.694-.216.216-.442.45-.19.884.252.432 1.12 1.846 2.406 2.992 1.654 1.474 3.046 1.932 3.478 2.148.432.216.684.18.936-.108.26-.288 1.1-1.278 1.394-1.718.288-.432.576-.36.972-.216.398.144 2.524 1.19 2.956 1.406.432.216.72.324.828.504.108.18.108 1.044-.282 2.142z"/></svg>
+  </div>
+</a>
+</body>
+</html>
